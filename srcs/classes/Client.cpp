@@ -191,12 +191,18 @@ std::string Client::execParsedLine(std::string parsedLine) {
 	std::string result;
 
 	if (!params.size())
-		return "";
+		return result;
 
 	std::string cmd = params[0];
-	if (cmd[0] != TESTER_PREFIX && this->wantsToSendRawData())
-		return parsedLine + CRLF;
+	if (cmd[0] != TESTER_PREFIX) {
+		if (this->wantsToSendRawData())
+			return parsedLine + CRLF;
+		return result;
+	};
+
 	cmd = cmd.substr(1);
+	if (!cmd[0])
+		return result;
 	params.erase(params.begin());
 
 	Command* selectedCommand = this->getCommandByName(cmd);
