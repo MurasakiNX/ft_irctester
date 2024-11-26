@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# ft_irctester
+ft_irctester
+.vscode/
