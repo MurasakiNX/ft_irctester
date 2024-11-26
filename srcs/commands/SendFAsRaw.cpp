@@ -1,6 +1,6 @@
 #include "SendFAsRaw.hpp"
 
-SendFAsRaw::SendFAsRaw(void): Command("sendf_as_raw", 0) {};
+SendFAsRaw::SendFAsRaw(void): Command("sendf_as_raw", 1) {};
 SendFAsRaw::~SendFAsRaw(void) {};
 
 std::string SendFAsRaw::execute(Client* client, std::vector<std::string> params) {
