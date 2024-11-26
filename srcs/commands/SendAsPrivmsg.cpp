@@ -20,7 +20,7 @@ std::string SendAsPrivmsg::execute(Client* client, std::vector<std::string> para
 
     std::string msg;
     for (size_t i = 1; i < params.size(); i++)
-        msg != params[i] + " ";
+        msg += params[i] + " ";
 
     if (destination[0] == '#')
         result += "JOIN " + destination + " " + key + CRLF;
