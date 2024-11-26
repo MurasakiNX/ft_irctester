@@ -176,7 +176,7 @@ void Client::parseOutData(void) {
 			if (!data.empty()) {
 				std::string& inData = this->getInData();
 				std::cout << inData << std::endl;
-				inData += data + CRLF;
+				inData += data;
 			};
 		} catch (std::exception const& err) {
 			print_warning(std::string(err.what()));
