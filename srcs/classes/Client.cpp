@@ -175,7 +175,6 @@ void Client::parseOutData(void) {
 			std::string data = this->execParsedLine(rawLine);
 			if (!data.empty()) {
 				std::string& inData = this->getInData();
-				std::cout << inData << std::endl;
 				inData += data;
 			};
 		} catch (std::exception const& err) {
@@ -196,7 +195,7 @@ std::string Client::execParsedLine(std::string parsedLine) {
 
 	std::string cmd = params[0];
 	if (cmd[0] != TESTER_PREFIX && this->wantsToSendRawData())
-		return parsedLine;
+		return parsedLine + CRLF;
 	cmd = cmd.substr(1);
 	params.erase(params.begin());
 
