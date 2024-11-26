@@ -100,6 +100,11 @@ void Client::setupCommands(void) {
 	std::map<std::string, Command*>& commands = this->getCommands();
 
 	commands.insert(std::pair<std::string, Command*>("help", new Help));
+	commands.insert(std::pair<std::string, Command*>("send_as_privmsg", new SendAsPrivmsg));
+	commands.insert(std::pair<std::string, Command*>("send_as_raw", new SendAsRaw));
+	commands.insert(std::pair<std::string, Command*>("sendf_as_privmsg", new SendFAsPrivmsg));
+	commands.insert(std::pair<std::string, Command*>("sendf_as_raw", new SendFAsRaw));
+	commands.insert(std::pair<std::string, Command*>("toggle_raw", new ToggleRaw));
 };
 
 // Static
@@ -170,10 +175,11 @@ void Client::parseOutData(void) {
 			std::string data = this->execParsedLine(rawLine);
 			if (!data.empty()) {
 				std::string& inData = this->getInData();
+				std::cout << inData << std::endl;
 				inData += data + CRLF;
 			};
 		} catch (std::exception const& err) {
-			print_warning("\n\n" + std::string(err.what()));
+			print_warning(std::string(err.what()));
 		};
 
 		outData.erase(0, pos + 1);
@@ -241,12 +247,14 @@ void Client::launch(void) {
 	testerPollFds.push_back(this->getPollFd(fd));
 	testerPollFds.push_back(this->getPollFd(STDIN_FILENO));
 
+	fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);
+
 	while (this->isRunning()) {
 		if (poll(testerPollFds.data(), testerPollFds.size() - 1, -1) < 0) {
 			if (!this->getExitStatus()) {
 				this->setExitStatus(1);
 				this->setIsRunning(false);
-				print_error("\n\nError occured when calling the poll function.");
+				print_error("Error occured when calling the poll function.");
 			};
 			break;
 		};
@@ -260,7 +268,7 @@ void Client::launch(void) {
 				socklen_t length = sizeof(error);
 				testerPollFds.erase(testerPollFds.begin() + i--);
 				if (!getsockopt(pollFd, SOL_SOCKET, SO_ERROR, &error, &length))
-					print_warning("\n\nError with the pollFd n°" + getStringFromNumber(pollFd) + ": " + strerror(error));
+					print_warning("Error with the pollFd n°" + getStringFromNumber(pollFd) + ": " + strerror(error));
 			} else if (it->revents & POLLOUT && pollFd == fd) {
 				if (!this->hasSentBasicTesterData()) {
 					std::string logString;

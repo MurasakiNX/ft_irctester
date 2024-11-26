@@ -2,7 +2,7 @@ NAME 			= irctester
 CC				= c++
 
 CLASSES_SRCS	= Client.cpp Command.cpp
-COMMANDS_SRCS	= Help.cpp
+COMMANDS_SRCS	= Help.cpp SendAsPrivmsg.cpp SendAsRaw.cpp SendFAsPrivmsg.cpp SendFAsRaw.cpp ToggleRaw.cpp
 UTILS_SRCS		= print_utils.cpp string_utils.cpp
 MAIN_SRCS		= ft_irctester.cpp
 
@@ -13,7 +13,7 @@ SOURCES			= $(addprefix srcs/classes/, $(CLASSES_SRCS)) \
 OBJECTS			= $(SOURCES:.cpp=.o)
 OBJECTS_FOLDER  = $(addprefix objs/, $(OBJECTS))
 
-CMD_HEADERS		= Help.hpp
+CMD_HEADERS		= Help.hpp SendAsPrivmsg.hpp SendAsRaw.hpp SendFAsPrivmsg.hpp SendFAsRaw.hpp ToggleRaw.hpp
 HEADERS_FILES	= Client.hpp Command.hpp ft_irctester.hpp
 
 HEADERS			= $(addprefix includes/commands/, $(CMD_HEADERS)) \

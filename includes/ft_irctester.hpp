@@ -16,12 +16,18 @@
 # include <ifaddrs.h>
 # include <arpa/inet.h>
 # include <signal.h>
+# include <fcntl.h>
 
 // Client
 # include "Client.hpp"
 
 // Commands
 # include "Help.hpp"
+# include "SendAsPrivmsg.hpp"
+# include "SendAsRaw.hpp"
+# include "SendFAsPrivmsg.hpp"
+# include "SendFAsRaw.hpp"
+# include "ToggleRaw.hpp"
 
 // Utils
 // print_utils.cpp
@@ -50,7 +56,7 @@ std::vector<std::string> split(std::string const& str, char delimiter);
 
 // Defines
 # define NICK "irctester"
-# define USER "ft_irctester 127.0.0.1 ft_irc :The almighty tester"
+# define USER "ft_irctester 0 0 0 :The almighty tester"
 # define CRLF "\r\n"
 # define MESSAGE_SIZE 1024
 # define PROMPT (BOLD PURPLE "TESTER> " END_COLOR)
