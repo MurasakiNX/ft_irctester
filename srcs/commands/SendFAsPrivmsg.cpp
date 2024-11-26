@@ -25,7 +25,7 @@ std::string SendFAsPrivmsg::execute(Client* client, std::vector<std::string> par
         print_colored("Cannot open " + params[1] + " file.", YELLOW);
     else {
         if (destination[0] == '#')
-            result += "JOIN #" + destination + " " + key + CRLF;
+            result += "JOIN " + destination + " " + key + CRLF;
 
         std::string part;
         while (std::getline(file, part))

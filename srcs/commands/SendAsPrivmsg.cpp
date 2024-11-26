@@ -23,7 +23,7 @@ std::string SendAsPrivmsg::execute(Client* client, std::vector<std::string> para
         msg != params[i] + " ";
 
     if (destination[0] == '#')
-        result += "JOIN #" + destination + " " + key + CRLF;
+        result += "JOIN " + destination + " " + key + CRLF;
     result += "PRIVMSG " + destination + " :" + msg + CRLF;
 
     return result;
