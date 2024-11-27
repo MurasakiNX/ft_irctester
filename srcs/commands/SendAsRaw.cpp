@@ -8,7 +8,7 @@ std::string SendAsRaw::execute(Client* client, std::vector<std::string> params) 
     std::string result;
 
     for (size_t i = 0; i < params.size(); i++)
-        result += params[i] + " " + CRLF;
+        result += params[i] + " ";
 
-    return result;
+    return result + CRLF;
 };
