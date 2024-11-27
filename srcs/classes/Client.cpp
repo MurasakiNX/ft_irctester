@@ -1,5 +1,6 @@
 #include "Client.hpp"
 
+int Client::_fd = -1;
 bool Client::_isRunning = false;
 int Client::_exitStatus = 0;
 
@@ -138,6 +139,8 @@ std::string Client::validatePassword(std::string password) {
 void Client::signalHandler(int status) {
 	_isRunning = false;
 	_exitStatus = 128 + status;
+	std::string quitMSG = "QUIT :Signal received" CRLF;
+	send(_fd, quitMSG.c_str(), quitMSG.length(), MSG_NOSIGNAL);
 	std::cout << '\n';
 	print_colored("[SIGNAL RECEIVED]: The Tester has just received an exit signal, so it will exit :)", CYAN);
 };

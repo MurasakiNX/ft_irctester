@@ -7,7 +7,6 @@
 class Command;
 class Client {
     private:
-        int         _fd;
         int         _port;
         bool        _sentBasicTesterData;
         bool        _sendRawData;
@@ -18,6 +17,7 @@ class Client {
         std::map<std::string, Command*> _commands;
         std::vector<pollfd> _pollFds;
         
+        static int  _fd;
         static bool _isRunning;
         static int  _exitStatus;
 
